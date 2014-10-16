@@ -35,7 +35,6 @@ class SubscribeController extends AbstractBaseController {
 	 * @return void
 	 */
 	public function subscribeAction() {
-
 		$userData = array();
 
 		$userData['source'] = $this->settings['source'];
