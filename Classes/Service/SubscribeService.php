@@ -10,7 +10,7 @@ use \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
  *
  * @package MoveElevator\MeCleverreach\Service
  */
-class SubscribeService extends AbstractBaseService {
+class SubscribeService {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Mvc\Request
