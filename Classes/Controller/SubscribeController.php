@@ -3,11 +3,17 @@
 namespace MoveElevator\MeCleverreach\Controller;
 
 /**
- * Class AbstractBaseController
+ * Class SubscribeController
  *
  * @package MoveElevator\MeCleverreach\Controller
  */
 class SubscribeController extends AbstractBaseController {
+
+	/**
+	 * @var \MoveElevator\MeCleverreach\Service\SubscribeService
+	 * @inject
+	 */
+	protected $subscribeService;
 
 	/**
 	 * Initialize every action
@@ -16,7 +22,8 @@ class SubscribeController extends AbstractBaseController {
 	 * @return void
 	 */
 	public function initializeAction() {
-
+		parent::initializeAction();
+		$this->subscribeService->initializeServiceProperties($this->settings, $this->request);
 	}
 
 	/**
@@ -35,16 +42,8 @@ class SubscribeController extends AbstractBaseController {
 	 * @return void
 	 */
 	public function subscribeAction() {
-
-		$userData = array();
-
-		$userData['source'] = $this->settings['source'];
-		$userData['registered'] = time();
-
-		$userData['email'] = $this->request->getArgument('email');
-		$userData['attributes'] = $this->request->getArgument('email');
-
-		$userData['attributes'] = $this->convertAttributes($this->request->getArguments());
+		$userData = $this->subscribeService->generateUserData();
+		$this->request->getArgument('email');
 		$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], 153074, $userData['email'], 0);
 
 		if ($soapResponse->statuscode == self::API_DATA_NOT_FOUND) {
