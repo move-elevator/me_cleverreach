@@ -1,12 +1,27 @@
-<f:comment>
-	@todo
-	* add missing form labels
-	* format form with bootstrap style
-</f:comment>
+<div class="row">
+	<div class="col-xs-12">
+		<f:render partial="Form/FormError" arguments="{object:'user',subscriptionState:'{subscriptionState}',translationKey:'form.error.subscribe'}"/>
 
-<f:form action="subscribe">
-	<f:form.textfield name="firstName"  />
-	<f:form.textfield name="lastName"  />
-	<f:form.textfield name="email"  />
-	<f:form.submit />
-</f:form>
+		<f:form action="subscribe" controller="Subscribe" method="post" objectName="user" class="form-horizontal">
+			<f:render
+					partial="Form/Field"
+					arguments="{fieldId: 'me-cleverreach-subscribe-first-name', translationKey: 'user.firstName', propertyName: 'firstName', value: '{user.firstName}'}"/>
+
+			<f:render
+					partial="Form/Field"
+					arguments="{fieldId: 'me-cleverreach-subscribe-last-name', translationKey: 'user.lastName', propertyName: 'lastName', value: '{user.lastName}'}"/>
+
+			<f:render
+					partial="Form/Field"
+					arguments="{fieldId: 'me-cleverreach-subscribe-email', translationKey: 'user.email', propertyName: 'email', value: '{user.email}'}"/>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">
+						<f:translate key="form.subscribe"/>
+					</button>
+				</div>
+			</div>
+		</f:form>
+	</div>
+</div>

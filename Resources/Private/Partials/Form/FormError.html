@@ -1,0 +1,14 @@
+<f:form.validationResults for="{object}">
+	<f:if condition="{validationResults.flattenedErrors}">
+		<f:render partial="Form/FormNotification" arguments="{state:'danger', translationKey: '{translationKey}'}"/>
+	</f:if>
+
+	<f:switch expression="{subscriptionState}"> 
+		<f:case value="success">
+			<f:render partial="Form/FormNotification" arguments="{state:'success', translationKey: 'form.{subscriptionState}.subscribe'}"/>
+		</f:case>
+		<f:case value="already_exists">
+			<f:render partial="Form/FormNotification" arguments="{state:'warning', translationKey: 'form.{subscriptionState}.subscribe'}"/>
+		</f:case>
+	</f:switch>
+</f:form.validationResults>
