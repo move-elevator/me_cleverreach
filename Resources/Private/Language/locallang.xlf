@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2013-01-14T10:49:30Z" product-name="me_cleverreach">
+        <header/>
+        <body>
+            <trans-unit id="user.firstName">
+                <source>Firstname</source>
+            </trans-unit>
+            <trans-unit id="user.lastName">
+                <source>Lastname</source>
+            </trans-unit>
+            <trans-unit id="user.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="user.firstName.placeholder">
+                <source>Enter firstname</source>
+            </trans-unit>
+            <trans-unit id="user.lastName.placeholder">
+                <source>Enter lastname</source>
+            </trans-unit>
+            <trans-unit id="user.email.placeholder">
+                <source>Enter email</source>
+            </trans-unit>
+            <trans-unit id="form.subscribe">
+                <source>Subscribe</source>
+            </trans-unit>
+            <trans-unit id="form.error.subscribe">
+                <source>Error!</source>
+            </trans-unit>
+            <trans-unit id="user.error.firstName.1221560718">
+                <source>Firstname required!</source>
+            </trans-unit>
+            <trans-unit id="user.error.lastName.1221560718">
+                <source>Lastname required!</source>
+            </trans-unit>
+            <trans-unit id="user.error.email.1221560718">
+                <source>Email required!</source>
+            </trans-unit>
+            <trans-unit id="user.error.email.1221559976">
+                <source>Email invalid!</source>
+            </trans-unit>
+            <trans-unit id="form.success.subscribe">
+                <source>Subscription successful!</source>
+            </trans-unit>
+            <trans-unit id="form.already_exists.subscribe">
+                <source>Email already exists!</source>
+            </trans-unit>
+
+            <trans-unit id="subscribe.directSubscription.thankYou">
+                <source>We appreciate your interest in our newsletter.</source>
+            </trans-unit>
+            <trans-unit id="subscribe.directSubscription.listData">
+                <source>The following data have been deposited with us:</source>
+            </trans-unit>
+            <trans-unit id="subscribe.directSubscription.optinNotification">
+                <source>To complete the registration please click on the link in the email we've just sent to you.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
