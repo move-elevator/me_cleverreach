@@ -4,6 +4,7 @@ namespace MoveElevator\MeCleverreach\Controller;
 
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use \MoveElevator\MeCleverreach\Domain\Model\User;
 
 /**
  * Class AbstractBaseController
@@ -60,5 +61,32 @@ abstract class AbstractBaseController extends ActionController {
 		}
 
 		return $attributes;
+	}
+
+	/**
+	 * @param $argument
+	 * @return mixed
+	 */
+	protected function getRequestArgumentIfExisting($argument) {
+		if($this->request->hasArgument($argument)) {
+			return $this->request->getArgument($argument);
+		}
+
+		return NULL;
+	}
+
+	/**
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 * @param string $extraInfo
+	 * @return array
+	 */
+	protected function getMailHeader(User $user, $extraInfo = '') {
+		return array(
+			"user_ip" => $GLOBALS['_ENV']['REMOTE_ADDR'],
+			"user_agent" => $GLOBALS['_ENV']['HTTP_USER_AGENT'],
+			"referer" => $GLOBALS['_ENV']['HTTP_REFERER'],
+			"postdata" => $user->getPostData(),
+			"info" => $extraInfo,
+		);
 	}
 }

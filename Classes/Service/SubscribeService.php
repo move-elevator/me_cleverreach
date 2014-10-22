@@ -6,7 +6,7 @@ use \TYPO3\CMS\Extbase\Mvc\Request;
 use \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 
 /**
- * Class SubscribeController
+ * Class SubscribeService
  *
  * @package MoveElevator\MeCleverreach\Service
  */
@@ -38,17 +38,12 @@ class SubscribeService {
 	public function generateUserData() {
 		$this->_validateServiceProperties();
 
-		$userData = array();
-
-		$userData['source'] = $this->settings['source'];
-		$userData['registered'] = time();
-
-		$userData['email'] = $this->request->getArgument('email');
-		$userData['attributes'] = $this->request->getArgument('email');
-
-		$userData['attributes'] = $this->convertAttributes($this->request->getArguments());
-
-		return $userData;
+		return array(
+			'source' => $this->settings['source'],
+			'registered' => time(),
+			'email' => $this->request->getArgument('email'),
+			'attributes' => $this->convertAttributes($this->request->getArguments())
+		);
 	}
 
 	/**

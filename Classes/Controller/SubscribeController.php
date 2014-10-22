@@ -2,6 +2,9 @@
 
 namespace MoveElevator\MeCleverreach\Controller;
 
+use \MoveElevator\MeCleverreach\Controller\AbstractBaseController;
+use \MoveElevator\MeCleverreach\Domain\Model\User;
+
 /**
  * Class SubscribeController
  *
@@ -10,54 +13,59 @@ namespace MoveElevator\MeCleverreach\Controller;
 class SubscribeController extends AbstractBaseController {
 
 	/**
-	 * @var \MoveElevator\MeCleverreach\Service\SubscribeService
-	 * @inject
-	 */
-	protected $subscribeService;
-
-	/**
-	 * Initialize every action
-	 *
-	 * @throws \Exception
-	 * @return void
-	 */
-	public function initializeAction() {
-		parent::initializeAction();
-		$this->subscribeService->initializeServiceProperties($this->settings, $this->request);
-	}
-
-	/**
 	 * Show the SubscribeForm
 	 *
 	 * @return void
 	 */
 	public function subscribeFormAction() {
-		//just render the template
+		if ($this->request->hasArgument('user') && $this->request->getArgument('user') instanceof User) {
+			$this->view->assignMultiple(array(
+				'user' => $this->request->getArgument('user'),
+				'subscriptionState' => $this->getRequestArgumentIfExisting('subscriptionState')
+			));
+		}
 	}
 
 	/**
 	 * Subscribe the user to CleverReach
 	 *
-	 * @todo replace hard-coded form-id (88377) and list-id (153074) by settings
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @return void
+	 * @todo outsourced logic in service
 	 */
-	public function subscribeAction() {
-		$userData = $this->subscribeService->generateUserData();
-		$this->request->getArgument('email');
-		$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], 153074, $userData['email'], 0);
+	public function subscribeAction(User $user) {
+		$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail(), 0);
 
 		if ($soapResponse->statuscode == self::API_DATA_NOT_FOUND) {
-			$soapResponse = $this->soapClient->receiverAdd($this->settings['config']['apiKey'], 153074, $userData);
-			//@todo add success message to view
+			$soapResponse = $this->soapClient->receiverAdd($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->toArray());
+			$subscriptionState = 'success';
 		} else {
-			//@todo add user is already exists to view
+			$this->forward('subscribeForm', NULL, NULL, array(
+				'user' => $user,
+				'subscriptionState' => 'already_exists'
+			));
 		}
-		if (intval($this->settings['directSubscription']) === 1) {
-			$soapResponse = $this->soapClient->receiverSetActive($this->settings['config']['apiKey'], 153074, $userData['email']);
+
+		if (intval($this->settings['directSubscription']) !== 1) {
+			$directSubscription = FALSE;
+			$soapResponseSetInactive = $this->soapClient->receiverSetInactive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
+			$soapResponseSendActivationMail = $this->soapClient->formsSendActivationMail(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['formId'],
+				$user->getEmail(),
+				$this->getMailHeader($user)
+			);
 			//@todo validate and add message to view
 		} else {
-			$soapResponse = $this->soapClient->formsActivationMail($this->settings['config']['apiKey'], 88377, $userData['email']);
+			$directSubscription = TRUE;
+			$soapResponse = $this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
 			//@todo validate and add message to view
 		}
+
+		$this->view->assignMultiple(array(
+			'user' => $user,
+			'subscriptionState' => $subscriptionState,
+			'directSubscription' => $directSubscription
+		));
 	}
 }
