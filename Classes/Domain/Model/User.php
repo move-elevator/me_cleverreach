@@ -3,6 +3,7 @@
 namespace MoveElevator\MeCleverreach\Domain\Model;
 
 use \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use \MoveElevator\MeLibrary\Utility\TyposcriptUtility;
 
 /**
  * Class FirstCharFilter
@@ -28,6 +29,20 @@ class User extends AbstractValueObject {
 	 * @validate EmailAddress
 	 */
 	protected $email;
+
+	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * Initialize user model
+	 *
+	 * @return void
+	 */
+	public function initializeObject() {
+		$this->settings = TyposcriptUtility::getTypoScriptSetup('tx_mecleverreach', 'settings');
+	}
 
 	/**
 	 * @param string $firstName
@@ -75,8 +90,12 @@ class User extends AbstractValueObject {
 	 * @return array
 	 */
 	public function toArray() {
-		$properties = get_object_vars($this);
-		$properties['arguments'] = $this->_getConvertAttributes();
+		$properties = array(
+			'email' => $this->getEmail(),
+			'registered' => time(),
+			'source' => $this->settings['config.']['source'],
+			'arguments' => $this->_getConvertAttributes()
+		);
 
 		return $properties;
 	}
@@ -103,7 +122,7 @@ class User extends AbstractValueObject {
 		$postData = '';
 		$attributes = $this->_getConvertAttributes();
 
-		for($index = 0; $index < count($attributes); $index++) {
+		for ($index = 0; $index < count($attributes); $index++) {
 			if ($index > 0) {
 				$postData .= ',';
 			}
