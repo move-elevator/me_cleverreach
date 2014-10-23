@@ -57,7 +57,6 @@ class SubscribeController extends AbstractBaseController {
 
 		if (intval($this->settings['directSubscription']) !== 1) {
 			$directSubscription = FALSE;
-			$soapResponseSetInactive = $this->soapClient->receiverSetInactive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
 			$soapResponseSendActivationMail = $this->soapClient->formsSendActivationMail(
 				$this->settings['config']['apiKey'],
 				$this->settings['config']['formId'],
