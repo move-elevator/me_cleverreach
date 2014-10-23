@@ -18,7 +18,9 @@ abstract class AbstractBaseValidator extends AbstractValidator implements Valida
 	protected $settings = array();
 
 	/**
-	 * Initialize validation
+	 * Initialize validation and get TypoScript settings
+	 *
+	 * @return void
 	 */
 	public function initializeObject() {
 		$this->settings = SettingsUtility::getSettings();

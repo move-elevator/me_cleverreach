@@ -45,13 +45,18 @@ class User extends AbstractValueObject {
 	}
 
 	/**
+	 * Set property firstName
+	 *
 	 * @param string $firstName
+	 * @return void
 	 */
 	public function setFirstName($firstName) {
 		$this->firstName = $firstName;
 	}
 
 	/**
+	 * Get property firstName
+	 *
 	 * @return string
 	 */
 	public function getFirstName() {
@@ -59,13 +64,18 @@ class User extends AbstractValueObject {
 	}
 
 	/**
+	 * Set property lastName
+	 *
 	 * @param string $lastName
+	 * @return void
 	 */
 	public function setLastName($lastName) {
 		$this->lastName = $lastName;
 	}
 
 	/**
+	 * Get property lastName
+	 *
 	 * @return string
 	 */
 	public function getLastName() {
@@ -73,13 +83,18 @@ class User extends AbstractValueObject {
 	}
 
 	/**
+	 * Get property email
+	 *
 	 * @param string $email
+	 * @return void
 	 */
 	public function setEmail($email) {
 		$this->email = $email;
 	}
 
 	/**
+	 * Set property email
+	 *
 	 * @return string
 	 */
 	public function getEmail() {
@@ -87,6 +102,8 @@ class User extends AbstractValueObject {
 	}
 
 	/**
+	 * Get object properties as array in from CleverReach supported format
+	 *
 	 * @return array
 	 */
 	public function toArray() {
@@ -94,18 +111,18 @@ class User extends AbstractValueObject {
 			'email' => $this->getEmail(),
 			'registered' => time(),
 			'source' => $this->settings['config']['source'],
-			'attributes' => $this->_getConvertAttributes()
+			'attributes' => $this->getConvertAttributes()
 		);
 
 		return $properties;
 	}
 
 	/**
-	 * Converts Array into CleverReach supported format
+	 * Converts array into CleverReach supported format
 	 *
 	 * @return array
 	 */
-	protected function _getConvertAttributes() {
+	protected function getConvertAttributes() {
 		$attributes = array();
 
 		foreach (get_object_vars($this) as $key => $value) {
@@ -116,11 +133,13 @@ class User extends AbstractValueObject {
 	}
 
 	/**
+	 * Get post data in CleverReach supported format
+	 *
 	 * @return string
 	 */
 	public function getPostData() {
 		$postData = '';
-		$attributes = $this->_getConvertAttributes();
+		$attributes = $this->getConvertAttributes();
 
 		for ($index = 0; $index < count($attributes); $index++) {
 			if ($index > 0) {

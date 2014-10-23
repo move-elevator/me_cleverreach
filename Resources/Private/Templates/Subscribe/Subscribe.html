@@ -4,6 +4,38 @@
 			<f:render partial="Form/FormNotification" arguments="{state:'success', translationKey: 'form.{subscriptionState}.subscribe'}"/>
 		</f:if>
 
+		<p>
+			<f:translate key="subscribe.directSubscription.thankYou"/>
+		</p>
+		<p>
+			<f:translate key="subscribe.directSubscription.listData"/>
+		</p>
+		<table class="table table-hover">
+			<tr>
+				<th>
+					<f:translate key="user.firstName"/>:
+				</th>
+				<td>
+					{user.firstName}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<f:translate key="user.lastName"/>:
+				</th>
+				<td>
+					{user.lastName}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<f:translate key="user.email"/>:
+				</th>
+				<td>
+					{user.email}
+				</td>
+			</tr>
+		</table>
 		<f:if condition="{directSubscription}">
 			<f:then>
 				<f:render partial="Subscribe/DirectSubscription"

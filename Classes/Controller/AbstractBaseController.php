@@ -3,8 +3,6 @@
 namespace MoveElevator\MeCleverreach\Controller;
 
 use \TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \MoveElevator\MeCleverreach\Domain\Model\User;
 use \MoveElevator\MeCleverreach\Utility\SoapUtility;
 
 /**
@@ -18,6 +16,9 @@ abstract class AbstractBaseController extends ActionController {
 	protected $soapClient;
 
 	/**
+	 * Initialize all controller actions
+	 *
+	 * @return void
 	 * @throws \Exception
 	 */
 	protected function initializeAction() {
@@ -25,7 +26,9 @@ abstract class AbstractBaseController extends ActionController {
 	}
 
 	/**
-	 * @param $argument
+	 * Get request argument is existing
+	 *
+	 * @param mixed $argument
 	 * @return mixed
 	 */
 	protected function getRequestArgumentIfExisting($argument) {

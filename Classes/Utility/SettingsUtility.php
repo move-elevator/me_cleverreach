@@ -13,6 +13,8 @@ use \TYPO3\CMS\Extbase\Service\TypoScriptService;
  */
 class SettingsUtility {
 	/**
+	 * Get settings as plain array
+	 *
 	 * @return array
 	 */
 	static public function getSettings() {

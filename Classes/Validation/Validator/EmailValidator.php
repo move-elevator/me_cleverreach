@@ -23,6 +23,11 @@ class EmailValidator extends AbstractBaseValidator {
 	 */
 	protected $value;
 
+	/**
+	 * Initialize email validation and soap client
+	 *
+	 * @return void
+	 */
 	public function initializeObject() {
 		parent::initializeObject();
 
@@ -30,6 +35,8 @@ class EmailValidator extends AbstractBaseValidator {
 	}
 
 	/**
+	 * Validate email from user and set error message if necessary
+	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User|NULL $value
 	 * @return boolean
 	 */

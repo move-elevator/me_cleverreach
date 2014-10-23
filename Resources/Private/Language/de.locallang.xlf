@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2013-01-14T10:49:30Z" product-name="me_cleverreach">
-        <header />
+        <header/>
         <body>
             <trans-unit id="user.firstName">
                 <target>Vorname</target>
@@ -57,6 +57,9 @@
             </trans-unit>
             <trans-unit id="subscribe.directSubscription.optinNotification">
                 <target>Um die Anmeldung abzuschließen, klicken Sie bitte auf den Link in der E-Mail, die wir soeben an Sie gesendet haben.</target>
+            </trans-unit>
+            <trans-unit id="subscribe.directSubscription.directSubscription">
+                <target>Ihre E-Mail-Adresse wurde aktiviert und wird beim nächsten Versand des Newsletters berücksichtigt.</target>
             </trans-unit>
         </body>
     </file>

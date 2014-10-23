@@ -2,8 +2,6 @@
 
 namespace MoveElevator\MeCleverreach\Utility;
 
-use \MoveElevator\MeCleverreach\Utility\SettingsUtility;
-
 /**
  * Class SoapUtility
  *
@@ -30,7 +28,7 @@ class SoapUtility {
 	const API_ERROR_SAVING_FILTER = 120;
 
 	/**
-	 * Initialize every action
+	 * Initialize soap client and api
 	 *
 	 * @throws \Exception
 	 * @return \SoapClient

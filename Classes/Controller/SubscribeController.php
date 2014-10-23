@@ -2,9 +2,7 @@
 
 namespace MoveElevator\MeCleverreach\Controller;
 
-use \MoveElevator\MeCleverreach\Controller\AbstractBaseController;
 use \MoveElevator\MeCleverreach\Domain\Model\User;
-use \MoveElevator\MeCleverreach\Utility\SoapUtility;
 
 /**
  * Class SubscribeController
@@ -29,16 +27,21 @@ class SubscribeController extends AbstractBaseController {
 			$this->getRequestArgumentIfExisting('user') instanceof User
 			&& $this->getRequestArgumentIfExisting('subscriptionState') !== NULL
 		) {
-			$this->view->assignMultiple(array(
-				'user' => $this->request->getArgument('user'),
-				'subscriptionState' => $this->getRequestArgumentIfExisting('subscriptionState')
-			));
+			$this->view->assignMultiple(
+				array(
+					'user' => $this->request->getArgument('user'),
+					'subscriptionState' => $this->getRequestArgumentIfExisting('subscriptionState')
+				)
+			);
 			$this->request->setArgument('subscriptionState', NULL);
 			$this->request->setArgument('user', NULL);
 		}
 	}
 
 	/**
+	 * Initialize subscribe action, redirect to subscribeFormAction
+	 * if user in request equal null
+	 *
 	 * @return void
 	 */
 	public function initializeSubscribeAction() {
@@ -48,7 +51,7 @@ class SubscribeController extends AbstractBaseController {
 	}
 
 	/**
-	 * Subscribe the user to CleverReach
+	 * Subscribe a user to CleverReach
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @validate $user MoveElevator.MeCleverreach:Email
@@ -68,10 +71,12 @@ class SubscribeController extends AbstractBaseController {
 			);
 		}
 
-		$this->view->assignMultiple(array(
-			'user' => $user,
-			'subscriptionState' => $result['subscriptionState'],
-			'directSubscription' => $result['directSubscription']
-		));
+		$this->view->assignMultiple(
+			array(
+				'user' => $user,
+				'subscriptionState' => $result['subscriptionState'],
+				'directSubscription' => $result['directSubscription']
+			)
+		);
 	}
 }

@@ -24,6 +24,8 @@ class SubscribeService {
 
 	/**
 	 * Initialize subscribe service
+	 *
+	 * @return void
 	 */
 	public function initializeObject() {
 		$this->settings = SettingsUtility::getSettings();
@@ -31,6 +33,8 @@ class SubscribeService {
 	}
 
 	/**
+	 * Subscribe user in CleverReach
+	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @return array
 	 */
@@ -45,25 +49,14 @@ class SubscribeService {
 
 		$result['subscriptionState'] = $soapResponse->status;
 
-		if (intval($this->settings['directSubscription']) !== 1) {
-			$result['directSubscription'] = FALSE;
-			$soapResponseSendActivationMail = $this->soapClient->formsSendActivationMail(
-				$this->settings['config']['apiKey'],
-				$this->settings['config']['formId'],
-				$user->getEmail(),
-				$this->getMailHeader($user)
-			);
-			//@todo validate and add message to view
-		} else {
-			$result['directSubscription'] = TRUE;
-			$soapResponse = $this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
-			//@todo validate and add message to view
-		}
+		$this->processedMailActivationTasks($user, $result);
 
 		return $result;
 	}
 
 	/**
+	 * Get mail header for activation email
+	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @param string $extraInfo
 	 * @return array
@@ -76,5 +69,39 @@ class SubscribeService {
 			"postdata" => $user->getPostData(),
 			"info" => $extraInfo,
 		);
+	}
+
+	/**
+	 * Send activation email
+	 *
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 * @return void
+	 */
+	protected function sendActivationMail(User $user) {
+		$this->soapClient->formsSendActivationMail(
+			$this->settings['config']['apiKey'],
+			$this->settings['config']['formId'],
+			$user->getEmail(),
+			$this->getMailHeader($user)
+		);
+	}
+
+	/**
+	 * Activate user or send activation email
+	 *
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 * @param array &$result
+	 * @return void
+	 */
+	protected function processedMailActivationTasks(User $user, &$result) {
+		if (intval($this->settings['directSubscription']) !== 1) {
+			$result['directSubscription'] = FALSE;
+			$this->sendActivationMail($user);
+			/** @todo validate and add message to view */
+		} else {
+			$result['directSubscription'] = TRUE;
+			$this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
+			/** @todo validate and add message to view */
+		}
 	}
 }

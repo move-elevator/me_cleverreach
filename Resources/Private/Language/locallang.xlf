@@ -58,6 +58,9 @@
             <trans-unit id="subscribe.directSubscription.optinNotification">
                 <source>To complete the registration please click on the link in the email we've just sent to you.</source>
             </trans-unit>
+            <trans-unit id="subscribe.directSubscription.directSubscription">
+                <source>Your e-mail address has been activated and is included in the next sending the newsletter.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
