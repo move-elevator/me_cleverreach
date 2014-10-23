@@ -18,11 +18,16 @@ class SubscribeController extends AbstractBaseController {
 	 * @return void
 	 */
 	public function subscribeFormAction() {
-		if ($this->request->hasArgument('user') && $this->request->getArgument('user') instanceof User) {
+		if (
+			$this->getRequestArgumentIfExisting('user') instanceof User
+			&& $this->getRequestArgumentIfExisting('subscriptionState') !== NULL
+		) {
 			$this->view->assignMultiple(array(
 				'user' => $this->request->getArgument('user'),
 				'subscriptionState' => $this->getRequestArgumentIfExisting('subscriptionState')
 			));
+			$this->request->setArgument('subscriptionState', NULL);
+			$this->request->setArgument('user', NULL);
 		}
 	}
 
