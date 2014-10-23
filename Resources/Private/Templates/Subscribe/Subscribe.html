@@ -1,14 +1,7 @@
 <div class="row">
 	<div class="col-xs-12">
-		<f:if condition="{subscriptionState}">
-			<f:switch expression="{subscriptionState}"> 
-				<f:case value="success">
-					<f:render partial="Form/FormNotification" arguments="{state:'success', translationKey: 'form.{subscriptionState}.subscribe'}"/>
-				</f:case>
-				<f:case value="already_exists">
-					<f:render partial="Form/FormNotification" arguments="{state:'warning', translationKey: 'form.{subscriptionState}.subscribe'}"/>
-				</f:case>
-			</f:switch>
+		<f:if condition="{0:subscriptionState} == {0:'SUCCESS'}">
+			<f:render partial="Form/FormNotification" arguments="{state:'success', translationKey: 'form.{subscriptionState}.subscribe'}"/>
 		</f:if>
 
 		<f:if condition="{directSubscription}">

@@ -20,7 +20,7 @@
 		<f:for each="{validationResults.flattenedErrors}" as="errors">
 			<f:for each="{errors}" as="error" iteration="iterator">
 				<f:if condition="{property}">
-					<f:if condition="{0:property} == {0:error.code}">
+					<f:if condition="{0:property} == {0:error.arguments.property}">
 						<div class="col-sm-10 col-sm-offset-2">
 							{error.message}
 						</div>

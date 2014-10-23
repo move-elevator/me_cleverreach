@@ -39,11 +39,14 @@
             <trans-unit id="user.error.email.1221559976">
                 <source>Email invalid!</source>
             </trans-unit>
-            <trans-unit id="form.success.subscribe">
+            <trans-unit id="form.SUCCESS.subscribe">
                 <source>Subscription successful!</source>
             </trans-unit>
-            <trans-unit id="form.already_exists.subscribe">
-                <source>Email already exists!</source>
+            <trans-unit id="form.ERROR.subscribe">
+                <source>Error!</source>
+            </trans-unit>
+            <trans-unit id="form.ERROR.subscribe.text">
+                <source>Please try again at a later time again.</source>
             </trans-unit>
 
             <trans-unit id="subscribe.directSubscription.thankYou">

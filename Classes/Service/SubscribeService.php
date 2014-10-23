@@ -2,8 +2,9 @@
 
 namespace MoveElevator\MeCleverreach\Service;
 
-use \TYPO3\CMS\Extbase\Mvc\Request;
-use \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
+use \MoveElevator\MeCleverreach\Utility\SettingsUtility;
+use \MoveElevator\MeCleverreach\Utility\SoapUtility;
+use \MoveElevator\MeCleverreach\Domain\Model\User;
 
 /**
  * Class SubscribeService
@@ -11,11 +12,10 @@ use \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
  * @package MoveElevator\MeCleverreach\Service
  */
 class SubscribeService {
-
 	/**
-	 * @var \TYPO3\CMS\Extbase\Mvc\Request
+	 * @var \SoapClient
 	 */
-	protected $request;
+	protected $soapClient;
 
 	/**
 	 * @var array
@@ -23,52 +23,58 @@ class SubscribeService {
 	protected $settings = array();
 
 	/**
-	 * @param array $settings
-	 * @param \TYPO3\CMS\Extbase\Mvc\Request $request
-	 * @return void
+	 * Initialize subscribe service
 	 */
-	public function initializeServiceProperties(array $settings, Request $request) {
-		$this->settings = $settings;
-		$this->request = $request;
+	public function initializeObject() {
+		$this->settings = SettingsUtility::getSettings();
+		$this->soapClient = SoapUtility::initializeApi();
 	}
 
 	/**
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @return array
 	 */
-	public function generateUserData() {
-		$this->_validateServiceProperties();
+	public function subscribe(User $user) {
+		$result = array();
 
-		return array(
-			'source' => $this->settings['source'],
-			'registered' => time(),
-			'email' => $this->request->getArgument('email'),
-			'attributes' => $this->convertAttributes($this->request->getArguments())
+		$soapResponse = $this->soapClient->receiverAdd(
+			$this->settings['config']['apiKey'],
+			$this->settings['config']['listId'],
+			$user->toArray()
 		);
+
+		$result['subscriptionState'] = $soapResponse->status;
+
+		if (intval($this->settings['directSubscription']) !== 1) {
+			$result['directSubscription'] = FALSE;
+			$soapResponseSendActivationMail = $this->soapClient->formsSendActivationMail(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['formId'],
+				$user->getEmail(),
+				$this->getMailHeader($user)
+			);
+			//@todo validate and add message to view
+		} else {
+			$result['directSubscription'] = TRUE;
+			$soapResponse = $this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
+			//@todo validate and add message to view
+		}
+
+		return $result;
 	}
 
 	/**
-	 * @return bool
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 * @param string $extraInfo
+	 * @return array
 	 */
-	protected function _checkServiceProperties() {
-		$isValid = TRUE;
-
-		if (!is_array($this->settings) || count($this->settings) === 0) {
-			$isValid = FALSE;
-		}
-
-		if (!$this->request instanceof Request && $isValid === TRUE) {
-			$isValid = FALSE;
-		}
-
-		return $isValid;
-	}
-
-	/**
-	 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException
-	 */
-	protected function _validateServiceProperties() {
-		if ($this->_checkServiceProperties() === FALSE) {
-			throw new InvalidConfigurationException('Service properties not initialized.');
-		}
+	protected function getMailHeader(User $user, $extraInfo = '') {
+		return array(
+			"user_ip" => $GLOBALS['_ENV']['REMOTE_ADDR'],
+			"user_agent" => $GLOBALS['_ENV']['HTTP_USER_AGENT'],
+			"referer" => $GLOBALS['_ENV']['HTTP_REFERER'],
+			"postdata" => $user->getPostData(),
+			"info" => $extraInfo,
+		);
 	}
 }

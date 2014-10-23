@@ -3,7 +3,7 @@
 namespace MoveElevator\MeCleverreach\Domain\Model;
 
 use \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
-use \MoveElevator\MeLibrary\Utility\TyposcriptUtility;
+use \MoveElevator\MeCleverreach\Utility\SettingsUtility;
 
 /**
  * Class FirstCharFilter
@@ -41,7 +41,7 @@ class User extends AbstractValueObject {
 	 * @return void
 	 */
 	public function initializeObject() {
-		$this->settings = TyposcriptUtility::getTypoScriptSetup('tx_mecleverreach', 'settings');
+		$this->settings = SettingsUtility::getSettings();
 	}
 
 	/**
@@ -93,7 +93,7 @@ class User extends AbstractValueObject {
 		$properties = array(
 			'email' => $this->getEmail(),
 			'registered' => time(),
-			'source' => $this->settings['config.']['source'],
+			'source' => $this->settings['config']['source'],
 			'attributes' => $this->_getConvertAttributes()
 		);
 

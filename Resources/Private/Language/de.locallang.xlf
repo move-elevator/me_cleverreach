@@ -39,11 +39,14 @@
             <trans-unit id="user.error.email.1221559976">
                 <target>Bitte geben Sie eine gültige E-Mail-Adresse an:</target>
             </trans-unit>
-            <trans-unit id="form.success.subscribe">
+            <trans-unit id="form.SUCCESS.subscribe">
                 <target>Eintragung erfolgreich!</target>
             </trans-unit>
-            <trans-unit id="form.already_exists.subscribe">
-                <target>E-Mail-Adresse bereits vorhanden!</target>
+            <trans-unit id="form.ERROR.subscribe">
+                <target>Ihre Anmeldung konnte nicht gespeichert werden.</target>
+            </trans-unit>
+            <trans-unit id="form.ERROR.subscribe.text">
+                <target>Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.</target>
             </trans-unit>
 
             <trans-unit id="subscribe.directSubscription.thankYou">
