@@ -40,12 +40,7 @@ class SubscribeService {
 	 */
 	public function subscribe(User $user) {
 		$result = array();
-
-		$soapResponse = $this->soapClient->receiverAdd(
-			$this->settings['config']['apiKey'],
-			$this->settings['config']['listId'],
-			$user->toArray()
-		);
+		$soapResponse = $this->userAddOrUpdate($user);
 
 		$result['subscriptionState'] = $soapResponse->status;
 
@@ -103,5 +98,29 @@ class SubscribeService {
 			$this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
 			/** @todo validate and add message to view */
 		}
+	}
+
+	/**
+	 * Add or update receiver
+	 *
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 * @return array
+	 */
+	public function userAddOrUpdate($user) {
+		if ($soapResponse->statuscode != SoapUtility::API_DATA_NOT_FOUND) {
+			$soapResponse = $this->soapClient->receiverUpdate(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['listId'],
+				$user->toArray()
+			);
+		} else {
+			$soapResponse = $this->soapClient->receiverAdd(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['listId'],
+				$user->toArray()
+			);
+		}
+
+		return $soapResponse;
 	}
 }

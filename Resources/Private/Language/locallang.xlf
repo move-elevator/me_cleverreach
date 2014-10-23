@@ -61,6 +61,10 @@
             <trans-unit id="subscribe.directSubscription.directSubscription">
                 <source>Your e-mail address has been activated and is included in the next sending the newsletter.</source>
             </trans-unit>
+
+            <trans-unit id="form.already_exists.subscribe">
+                <source>Email already exists!</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
