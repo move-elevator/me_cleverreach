@@ -59,6 +59,7 @@ class SubscribeController extends AbstractBaseController {
 	 */
 	public function subscribeAction(User $user) {
 		$result = $this->subscribeService->subscribe($user);
+
 		if ($result['subscriptionState'] == 'ERROR') {
 			$this->forward(
 				'subscribeForm',

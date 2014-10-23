@@ -41,9 +41,7 @@ class SubscribeService {
 	public function subscribe(User $user) {
 		$result = array();
 		$soapResponse = $this->userAddOrUpdate($user);
-
 		$result['subscriptionState'] = $soapResponse->status;
-
 		$this->processedMailActivationTasks($user, $result);
 
 		return $result;
@@ -73,7 +71,7 @@ class SubscribeService {
 	 * @return void
 	 */
 	protected function sendActivationMail(User $user) {
-		$this->soapClient->formsSendActivationMail(
+		return $this->soapClient->formsSendActivationMail(
 			$this->settings['config']['apiKey'],
 			$this->settings['config']['formId'],
 			$user->getEmail(),
