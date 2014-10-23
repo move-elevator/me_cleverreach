@@ -94,7 +94,7 @@ class User extends AbstractValueObject {
 			'email' => $this->getEmail(),
 			'registered' => time(),
 			'source' => $this->settings['config.']['source'],
-			'arguments' => $this->_getConvertAttributes()
+			'attributes' => $this->_getConvertAttributes()
 		);
 
 		return $properties;

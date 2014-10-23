@@ -41,7 +41,7 @@ class SubscribeController extends AbstractBaseController {
 	public function subscribeAction(User $user) {
 		$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail(), 0);
 
-		if ($soapResponse->statuscode == self::API_DATA_NOT_FOUND) {
+		if ($soapResponse->statuscode == self::API_DATA_NOT_FOUND || $soapResponse->data->active === FALSE) {
 			$soapResponse = $this->soapClient->receiverAdd(
 				$this->settings['config']['apiKey'],
 				$this->settings['config']['listId'],
