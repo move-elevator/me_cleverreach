@@ -48,7 +48,6 @@
             <trans-unit id="form.ERROR.subscribe.text">
                 <target>Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.</target>
             </trans-unit>
-
             <trans-unit id="subscribe.directSubscription.thankYou">
                 <target>Wir freuen uns über Ihr Interesse an unserem Newsletter.</target>
             </trans-unit>

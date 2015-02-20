@@ -48,7 +48,6 @@
             <trans-unit id="form.ERROR.subscribe.text">
                 <source>Please try again at a later time again.</source>
             </trans-unit>
-
             <trans-unit id="subscribe.directSubscription.thankYou">
                 <source>We appreciate your interest in our newsletter.</source>
             </trans-unit>
