@@ -2,6 +2,7 @@
 
 namespace MoveElevator\MeCleverreach\Service;
 
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \MoveElevator\MeCleverreach\Utility\SettingsUtility;
 use \MoveElevator\MeCleverreach\Utility\SoapUtility;
 use \MoveElevator\MeCleverreach\Domain\Model\User;
@@ -56,9 +57,9 @@ class SubscribeService {
 	 */
 	protected function getMailHeader(User $user, $extraInfo = '') {
 		return array(
-			"user_ip" => $GLOBALS['_ENV']['REMOTE_ADDR'],
-			"user_agent" => $GLOBALS['_ENV']['HTTP_USER_AGENT'],
-			"referer" => $GLOBALS['_ENV']['HTTP_REFERER'],
+			"user_ip" => GeneralUtility::getIndpEnv('REMOTE_ADDR'),
+			"user_agent" => GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
+			"referer" => GeneralUtility::getIndpEnv('HTTP_REFERER'),
 			"postdata" => $user->getPostData(),
 			"info" => $extraInfo,
 		);
