@@ -1,0 +1,9 @@
+<f:form.validationResults for="{object}">
+	<f:if condition="{validationResults.flattenedErrors}">
+		<f:render partial="Form/FormNotification" arguments="{state:'danger', translationKey: '{translationKey}'}"/>
+	</f:if>
+</f:form.validationResults>
+
+<f:if condition="{0:subscriptionState} == {0:'ERROR'}">
+	<f:render partial="Form/FormNotification" arguments="{state:'success', translationKey: 'form.{subscriptionState}.subscribe'}"/>
+</f:if>

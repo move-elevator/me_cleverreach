@@ -2,22 +2,20 @@
 
 namespace MoveElevator\MeCleverreach\Controller;
 
+use \MoveElevator\MeCleverreach\Domain\Model\User;
+
 /**
- * Class AbstractBaseController
+ * Class SubscribeController
  *
  * @package MoveElevator\MeCleverreach\Controller
  */
 class SubscribeController extends AbstractBaseController {
 
 	/**
-	 * Initialize every action
-	 *
-	 * @throws \Exception
-	 * @return void
+	 * @var \MoveElevator\MeCleverreach\Service\SubscribeService
+	 * @inject
 	 */
-	public function initializeAction() {
-
-	}
+	protected $subscribeService;
 
 	/**
 	 * Show the SubscribeForm
@@ -25,39 +23,61 @@ class SubscribeController extends AbstractBaseController {
 	 * @return void
 	 */
 	public function subscribeFormAction() {
-		//just render the template
+		if (
+			$this->getRequestArgumentIfExisting('user') instanceof User
+			&& $this->getRequestArgumentIfExisting('subscriptionState') !== NULL
+		) {
+			$this->view->assignMultiple(
+				array(
+					'user' => $this->request->getArgument('user'),
+					'subscriptionState' => $this->getRequestArgumentIfExisting('subscriptionState')
+				)
+			);
+			$this->request->setArgument('subscriptionState', NULL);
+			$this->request->setArgument('user', NULL);
+		}
 	}
 
 	/**
-	 * Subscribe the user to CleverReach
+	 * Initialize subscribe action, redirect to subscribeFormAction
+	 * if user in request equal null
 	 *
-	 * @todo replace hard-coded form-id (88377) and list-id (153074) by settings
 	 * @return void
 	 */
-	public function subscribeAction() {
-		$userData = array();
-
-		$userData['source'] = $this->settings['source'];
-		$userData['registered'] = time();
-
-		$userData['email'] = $this->request->getArgument('email');
-		$userData['attributes'] = $this->request->getArgument('email');
-
-		$userData['attributes'] = $this->convertAttributes($this->request->getArguments());
-		$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], 153074, $userData['email'], 0);
-
-		if ($soapResponse->statuscode == self::API_DATA_NOT_FOUND) {
-			$soapResponse = $this->soapClient->receiverAdd($this->settings['config']['apiKey'], 153074, $userData);
-			//@todo add success message to view
-		} else {
-			//@todo add user is already exists to view
+	public function initializeSubscribeAction() {
+		if ($this->getRequestArgumentIfExisting('user') === NULL) {
+			$this->redirect('subscribeForm');
 		}
-		if (intval($this->settings['directSubscription']) === 1) {
-			$soapResponse = $this->soapClient->receiverSetActive($this->settings['config']['apiKey'], 153074, $userData['email']);
-			//@todo validate and add message to view
-		} else {
-			$soapResponse = $this->soapClient->formsActivationMail($this->settings['config']['apiKey'], 88377, $userData['email']);
-			//@todo validate and add message to view
+	}
+
+	/**
+	 * Subscribe a user to CleverReach
+	 *
+	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 * @validate $user MoveElevator.MeCleverreach:Email
+	 * @return void
+	 */
+	public function subscribeAction(User $user) {
+		$result = $this->subscribeService->subscribe($user);
+
+		if ($result['subscriptionState'] == 'ERROR') {
+			$this->forward(
+				'subscribeForm',
+				NULL,
+				NULL,
+				array(
+					'subscriptionState' => 'ERROR',
+					'user' => $user
+				)
+			);
 		}
+
+		$this->view->assignMultiple(
+			array(
+				'user' => $user,
+				'subscriptionState' => $result['subscriptionState'],
+				'directSubscription' => $result['directSubscription']
+			)
+		);
 	}
 }

@@ -1,0 +1,32 @@
+<f:comment>Annotation errors</f:comment>
+<f:form.validationResults for="{objectName}.{property}">
+	<f:if condition="{validationResults.flattenedErrors}">
+		<f:for each="{validationResults.flattenedErrors}" as="errors">
+			<f:for each="{errors}" as="error" iteration="iterator">
+				<f:if condition="{iterator.index} == 0">
+					<div class="col-sm-10 col-sm-offset-2">
+						<f:translate
+								key="{objectName}.error.{property}.{error.code}"/>
+					</div>
+				</f:if>
+			</f:for>
+		</f:for>
+	</f:if>
+</f:form.validationResults>
+
+<f:comment>Custom validator errors</f:comment>
+<f:form.validationResults for="{objectName}">
+	<f:if condition="{validationResults.flattenedErrors}">
+		<f:for each="{validationResults.flattenedErrors}" as="errors">
+			<f:for each="{errors}" as="error" iteration="iterator">
+				<f:if condition="{property}">
+					<f:if condition="{0:property} == {0:error.arguments.property}">
+						<div class="col-sm-10 col-sm-offset-2">
+							{error.message}
+						</div>
+					</f:if>
+				</f:if>
+			</f:for>
+		</f:for>
+	</f:if>
+</f:form.validationResults>

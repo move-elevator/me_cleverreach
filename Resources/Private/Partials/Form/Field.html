@@ -1,0 +1,16 @@
+<div class="form-group">
+	<f:render partial="Form/FieldError" arguments="{ property: propertyName, objectName: 'user'}" />
+
+	<label for="{fieldId}" class="col-sm-2 control-label">
+		<f:translate key="{translationKey}"/>:
+	</label>
+
+	<div class="col-sm-10">
+		<f:form.textfield
+				property="{propertyName}"
+				value="{value}"
+				id="{fieldId}"
+				class="form-control"
+				placeholder="{f:translate(key:'{translationKey}.placeholder')}"/>
+	</div>
+</div>

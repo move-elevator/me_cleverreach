@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col-xs-12">
+		<f:if condition="{0:subscriptionState} == {0:'SUCCESS'}">
+			<f:render partial="Form/FormNotification" arguments="{state:'success', translationKey: 'form.{subscriptionState}.subscribe'}"/>
+		</f:if>
+		<p>
+			<f:translate key="subscribe.directSubscription.thankYou"/>
+		</p>
+		<p>
+			<f:translate key="subscribe.directSubscription.listData"/>
+		</p>
+		<table class="table table-hover">
+			<tr>
+				<th>
+					<f:translate key="user.firstName"/>:
+				</th>
+				<td>
+					{user.firstName}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<f:translate key="user.lastName"/>:
+				</th>
+				<td>
+					{user.lastName}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<f:translate key="user.email"/>:
+				</th>
+				<td>
+					{user.email}
+				</td>
+			</tr>
+		</table>
+		<f:if condition="{directSubscription}">
+			<f:then>
+				<f:render partial="Subscribe/DirectSubscription"
+						  arguments="{user:'{user}'}"/>
+			</f:then>
+			<f:else>
+				<f:render partial="Subscribe/FormsSendActivationMail"
+						  arguments="{user:'{user}'}"/>
+			</f:else>
+		</f:if>
+	</div>
+</div>
