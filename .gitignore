@@ -1,0 +1,20 @@
+typo3temp/
+uploads/tx_extensionbuilder
+typo3conf/ENABLE_INSTALL_TOOL
+typo3conf/temp_*
+typo3conf/deprecation_*
+.DS_Store
+.buildpath
+.settings
+.project
+*.swp
+*.tmproj
+.idea
+
+# no typo3_src stuff
+t3lib
+typo3
+typo3_src
+
+# netbeans
+nbproject/
