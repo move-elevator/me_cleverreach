@@ -106,7 +106,9 @@ class SubscribeService {
 	 * @return array
 	 */
 	public function userAddOrUpdate($user) {
-		$soapResponse= $this->soapClient->receiverGetById(
+		// receiverGetByEmail documentation
+		// http://api.cleverreach.com/soap/doc/5.0/CleverReach/Receiver/_complex.receiver.php.html#functionreceiverGetByEmail
+		$soapResponse= $this->soapClient->receiverGetByEmail(
 			$this->settings['config']['apiKey'],
 			$this->settings['config']['listId'],
 			$user->getEmail(),
