@@ -32,7 +32,7 @@ abstract class AbstractBaseController extends ActionController {
 	 * @return mixed
 	 */
 	protected function getRequestArgumentIfExisting($argument) {
-		if($this->request->hasArgument($argument)) {
+		if ($this->request->hasArgument($argument)) {
 			return $this->request->getArgument($argument);
 		}
 

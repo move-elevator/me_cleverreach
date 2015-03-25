@@ -44,7 +44,12 @@ class EmailValidator extends AbstractBaseValidator {
 		$valid = FALSE;
 
 		if ($value instanceof User) {
-			$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], $this->settings['config']['listId'], $value->getEmail(), 0);
+			$soapResponse = $this->soapClient->receiverGetByEmail(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['listId'],
+				$value->getEmail(),
+				0
+			);
 
 			if ($soapResponse->statuscode == SoapUtility::API_DATA_NOT_FOUND || intval($soapResponse->data->deactivated) > 0) {
 				$valid = TRUE;

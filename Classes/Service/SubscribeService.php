@@ -57,11 +57,11 @@ class SubscribeService {
 	 */
 	protected function getMailHeader(User $user, $extraInfo = '') {
 		return array(
-			"user_ip" => GeneralUtility::getIndpEnv('REMOTE_ADDR'),
-			"user_agent" => GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
-			"referer" => GeneralUtility::getIndpEnv('HTTP_REFERER'),
-			"postdata" => $user->getPostData(),
-			"info" => $extraInfo,
+			'user_ip' => GeneralUtility::getIndpEnv('REMOTE_ADDR'),
+			'user_agent' => GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
+			'referer' => GeneralUtility::getIndpEnv('HTTP_REFERER'),
+			'postdata' => $user->getPostData(),
+			'info' => $extraInfo,
 		);
 	}
 
@@ -69,7 +69,7 @@ class SubscribeService {
 	 * Send activation email
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
-	 * @return void
+	 * @return \stdClass
 	 */
 	protected function sendActivationMail(User $user) {
 		return $this->soapClient->formsSendActivationMail(
@@ -94,7 +94,11 @@ class SubscribeService {
 			/** @todo validate and add message to view */
 		} else {
 			$result['directSubscription'] = TRUE;
-			$this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
+			$this->soapClient->receiverSetActive(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['listId'],
+				$user->getEmail()
+			);
 			/** @todo validate and add message to view */
 		}
 	}
@@ -108,7 +112,7 @@ class SubscribeService {
 	public function userAddOrUpdate($user) {
 		// receiverGetByEmail documentation
 		// http://api.cleverreach.com/soap/doc/5.0/CleverReach/Receiver/_complex.receiver.php.html#functionreceiverGetByEmail
-		$soapResponse= $this->soapClient->receiverGetByEmail(
+		$soapResponse = $this->soapClient->receiverGetByEmail(
 			$this->settings['config']['apiKey'],
 			$this->settings['config']['listId'],
 			$user->getEmail(),

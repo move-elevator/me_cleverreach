@@ -128,7 +128,7 @@ class User extends AbstractValueObject {
 		$attributes = array();
 
 		foreach (get_object_vars($this) as $key => $value) {
-			$attributes[] = array('key' => str_replace(" ", "_", strtolower($key)), 'value' => $value);
+			$attributes[] = array('key' => str_replace(' ', '_', strtolower($key)), 'value' => $value);
 		}
 
 		return $attributes;
@@ -142,8 +142,8 @@ class User extends AbstractValueObject {
 	public function getPostData() {
 		$postData = '';
 		$attributes = $this->getConvertAttributes();
-
-		for ($index = 0; $index < count($attributes); $index++) {
+		$countOfAttributes = count($attributes);
+		for ($index = 0; $index < $countOfAttributes; $index++) {
 			if ($index > 0) {
 				$postData .= ',';
 			}
