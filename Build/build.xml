@@ -90,6 +90,7 @@
     </target>
 
     <target name="phpmd" description="Perform project mess detection using PHPMD and log result in XML format">
+        <echo message="Processed PHPMD"/>
         <exec executable="${php}" failonerror="false">
             <arg value="${bindir}/phpmd"/>
             <arg path="${basedir}"/>
