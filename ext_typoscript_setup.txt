@@ -2,10 +2,6 @@ plugin.tx_mecleverreach{
 	settings {
 		config {
 			wsdlUrl = http://api.cleverreach.com/soap/interface_v5.1.php?wsdl
-			apiKey = 3e9523f2b0acbcb58571600c3f086347
-			source = TYPO3 - Kickstarter
-			formId = 88377
-			listId = 153074
 		}
 	}
 }
