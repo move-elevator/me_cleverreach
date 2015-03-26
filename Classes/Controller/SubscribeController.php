@@ -55,6 +55,7 @@ class SubscribeController extends AbstractBaseController {
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @validate $user MoveElevator.MeCleverreach:Email
+	 *
 	 * @return void
 	 */
 	public function subscribeAction(User $user) {

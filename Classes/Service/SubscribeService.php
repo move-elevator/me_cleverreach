@@ -37,6 +37,7 @@ class SubscribeService {
 	 * Subscribe user in CleverReach
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 *
 	 * @return array
 	 */
 	public function subscribe(User $user) {
@@ -53,15 +54,16 @@ class SubscribeService {
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @param string $extraInfo
+	 *
 	 * @return array
 	 */
 	protected function getMailHeader(User $user, $extraInfo = '') {
 		return array(
-			"user_ip" => GeneralUtility::getIndpEnv('REMOTE_ADDR'),
-			"user_agent" => GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
-			"referer" => GeneralUtility::getIndpEnv('HTTP_REFERER'),
-			"postdata" => $user->getPostData(),
-			"info" => $extraInfo,
+			'user_ip' => GeneralUtility::getIndpEnv('REMOTE_ADDR'),
+			'user_agent' => GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
+			'referer' => GeneralUtility::getIndpEnv('HTTP_REFERER'),
+			'postdata' => $user->getPostData(),
+			'info' => $extraInfo,
 		);
 	}
 
@@ -69,6 +71,7 @@ class SubscribeService {
 	 * Send activation email
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 *
 	 * @return void
 	 */
 	protected function sendActivationMail(User $user) {
@@ -85,6 +88,7 @@ class SubscribeService {
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
 	 * @param array &$result
+	 *
 	 * @return void
 	 */
 	protected function processedMailActivationTasks(User $user, &$result) {
@@ -94,7 +98,11 @@ class SubscribeService {
 			/** @todo validate and add message to view */
 		} else {
 			$result['directSubscription'] = TRUE;
-			$this->soapClient->receiverSetActive($this->settings['config']['apiKey'], $this->settings['config']['listId'], $user->getEmail());
+			$this->soapClient->receiverSetActive(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['listId'],
+				$user->getEmail()
+			);
 			/** @todo validate and add message to view */
 		}
 	}
@@ -103,6 +111,7 @@ class SubscribeService {
 	 * Add or update receiver
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+	 *
 	 * @return array
 	 */
 	public function userAddOrUpdate($user) {

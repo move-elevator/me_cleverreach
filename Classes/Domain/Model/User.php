@@ -128,7 +128,7 @@ class User extends AbstractValueObject {
 		$attributes = array();
 
 		foreach (get_object_vars($this) as $key => $value) {
-			$attributes[] = array('key' => str_replace(" ", "_", strtolower($key)), 'value' => $value);
+			$attributes[] = array('key' => str_replace(' ', '_', strtolower($key)), 'value' => $value);
 		}
 
 		return $attributes;

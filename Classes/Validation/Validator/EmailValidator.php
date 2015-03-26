@@ -38,15 +38,24 @@ class EmailValidator extends AbstractBaseValidator {
 	 * Validate email from user and set error message if necessary
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User|NULL $value
+	 *
 	 * @return boolean
 	 */
 	public function isValid($value) {
 		$valid = FALSE;
 
 		if ($value instanceof User) {
-			$soapResponse = $this->soapClient->receiverGetByEmail($this->settings['config']['apiKey'], $this->settings['config']['listId'], $value->getEmail(), 0);
+			$soapResponse = $this->soapClient->receiverGetByEmail(
+				$this->settings['config']['apiKey'],
+				$this->settings['config']['listId'],
+				$value->getEmail(),
+				0
+			);
 
-			if ($soapResponse->statuscode == SoapUtility::API_DATA_NOT_FOUND || intval($soapResponse->data->deactivated) > 0) {
+			if (
+				$soapResponse->statuscode == SoapUtility::API_DATA_NOT_FOUND
+				|| intval($soapResponse->data->deactivated) > 0
+			) {
 				$valid = TRUE;
 			} else {
 				$message = LocalizationUtility::translate('form.already_exists.subscribe', 'me_cleverreach');
