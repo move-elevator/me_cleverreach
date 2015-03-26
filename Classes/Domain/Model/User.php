@@ -8,7 +8,7 @@ use \MoveElevator\MeCleverreach\Utility\SettingsUtility;
 /**
  * Class FirstCharFilter
  *
- * @package MoveElevator\MeAddress\Domain\Model\FormObject
+ * @package MoveElevator\MeCleverreach\Domain\Model
  */
 class User extends AbstractValueObject {
 	/**
