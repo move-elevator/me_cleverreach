@@ -73,7 +73,7 @@ class UserTest extends UnitTestCase {
 		$result = $this->fixture->toArray();
 
 		foreach ($result['attributes'] as $attribute) {
-			if ('email' == $attribute['key']) {
+			if ('email' === $attribute['key']) {
 				$this->assertSame($this->fixture->getEmail(), $attribute['value']);
 			}
 		}
