@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 typo3temp/
 uploads/tx_extensionbuilder
 typo3conf/ENABLE_INSTALL_TOOL
@@ -18,3 +19,13 @@ typo3_src
 
 # netbeans
 nbproject/
+=======
+Build/bin*
+Build/log*
+Build/php*
+!Build/phpmd.xml
+vendor
+cache.*
+composer*
+!composer.json
+>>>>>>> master

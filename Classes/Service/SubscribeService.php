@@ -71,8 +71,7 @@ class SubscribeService {
 	 * Send activation email
 	 *
 	 * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
-	 *
-	 * @return void
+	 * @return \stdClass
 	 */
 	protected function sendActivationMail(User $user) {
 		return $this->soapClient->formsSendActivationMail(
@@ -115,6 +114,15 @@ class SubscribeService {
 	 * @return array
 	 */
 	public function userAddOrUpdate($user) {
+		// receiverGetByEmail documentation
+		// http://api.cleverreach.com/soap/doc/5.0/CleverReach/Receiver/_complex.receiver.php.html#functionreceiverGetByEmail
+		$soapResponse = $this->soapClient->receiverGetByEmail(
+			$this->settings['config']['apiKey'],
+			$this->settings['config']['listId'],
+			$user->getEmail(),
+			3
+		);
+
 		if ($soapResponse->statuscode != SoapUtility::API_DATA_NOT_FOUND) {
 			$soapResponse = $this->soapClient->receiverUpdate(
 				$this->settings['config']['apiKey'],

@@ -142,8 +142,8 @@ class User extends AbstractValueObject {
 	public function getPostData() {
 		$postData = '';
 		$attributes = $this->getConvertAttributes();
-
-		for ($index = 0; $index < count($attributes); $index++) {
+		$countOfAttributes = count($attributes);
+		for ($index = 0; $index < $countOfAttributes; $index++) {
 			if ($index > 0) {
 				$postData .= ',';
 			}
