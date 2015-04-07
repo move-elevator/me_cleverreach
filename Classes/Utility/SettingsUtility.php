@@ -20,10 +20,10 @@ class SettingsUtility {
 	 */
 	static public function getSettings() {
 		/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
+		$objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 
 		/** @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService */
-		$typoScriptService = $objectManager->get('\TYPO3\CMS\Extbase\Service\TypoScriptService');
+		$typoScriptService = $objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$settings = TyposcriptUtility::getTypoScriptSetup('tx_mecleverreach', 'settings');
 
 		if (is_array($settings) && $typoScriptService instanceof TypoScriptService) {

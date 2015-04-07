@@ -13,7 +13,7 @@ use \MoveElevator\MeCleverreach\Utility;
 class SettingsUtilityTest extends UnitTestCase {
 	/**
 	 * @test
-	 * @cover MoveElevator\MeCleverreach\Utility\SettingsUtility::getSettings
+	 * @cover \MoveElevator\MeCleverreach\Utility\SettingsUtility::getSettings
 	 * @return void
 	 */
 	public function testGetSettings() {
