@@ -4,7 +4,11 @@ namespace MoveElevator\MeCleverreach\Tests\Unit\Domain\Model;
 
 use \TYPO3\CMS\Core\Tests\UnitTestCase;
 
-
+/**
+ * Class UserTest
+ *
+ * @package MoveElevator\MeCleverreach\Tests\Unit\Domain\Model
+ */
 class UserTest extends UnitTestCase {
 
 	/**
@@ -39,6 +43,7 @@ class UserTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers \MoveElevator\MeCleverreach\Domain\Model\User::setFirstName
 	 * @return void
 	 */
 	public function testSetFirstNameStringAndGetsSame() {
@@ -48,6 +53,7 @@ class UserTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers \MoveElevator\MeCleverreach\Domain\Model\User::setLastName
 	 * @return void
 	 */
 	public function testSetLastNameStringAndGetsSame() {
@@ -57,6 +63,7 @@ class UserTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers \MoveElevator\MeCleverreach\Domain\Model\User::setEmail
 	 * @return void
 	 */
 	public function testSetEmailStringAndGetsSame() {
@@ -66,6 +73,7 @@ class UserTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers \MoveElevator\MeCleverreach\Domain\Model\User::toArray
 	 * @return void
 	 */
 	public function testToArray() {
@@ -81,6 +89,7 @@ class UserTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers \MoveElevator\MeCleverreach\Domain\Model\User::getPostData
 	 * @return void
 	 */
 	public function testPostData() {
