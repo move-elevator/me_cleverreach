@@ -2,9 +2,10 @@
 
 namespace MoveElevator\MeCleverreach\Utility;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \MoveElevator\MeLibrary\Utility\TyposcriptUtility;
 use \TYPO3\CMS\Extbase\Service\TypoScriptService;
+
 
 /**
  * Class SettingsUtility
@@ -19,7 +20,7 @@ class SettingsUtility {
 	 */
 	static public function getSettings() {
 		/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$objectManager = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
 
 		/** @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService */
 		$typoScriptService = $objectManager->get('\TYPO3\CMS\Extbase\Service\TypoScriptService');
