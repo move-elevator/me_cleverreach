@@ -5,7 +5,7 @@ namespace MoveElevator\MeCleverreach\Validation\Validator;
 use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use \MoveElevator\MeCleverreach\Domain\Model\User;
 use \MoveElevator\MeCleverreach\Utility\SoapUtility;
-
+use \TYPO3\CMS\Backend\FrontendBackendUserAuthentication;
 
 /**
  * Class EmailValidator
@@ -13,6 +13,8 @@ use \MoveElevator\MeCleverreach\Utility\SoapUtility;
  * @package MoveElevator\MeCleverreach\Validation\Validator
  */
 class EmailValidator extends AbstractBaseValidator {
+	const ERROR_LEVEL_INDEX = 2;
+
 	/**
 	 * @var \SoapClient
 	 */
@@ -60,10 +62,29 @@ class EmailValidator extends AbstractBaseValidator {
 			} else {
 				$message = LocalizationUtility::translate('form.already_exists.subscribe', 'me_cleverreach');
 				$this->addError($message, 1400589371, array('property' => 'email'));
+				$this->logErrorIfNecessary($soapResponse);
 			}
 		}
 
 		return $valid;
 	}
 
+	/**
+	 * @param \SoapClient $soapResponse
+	 * @return void
+	 */
+	protected function logErrorIfNecessary($soapResponse) {
+		if (
+			$soapResponse->status === 'ERROR'
+			&& $soapResponse->statuscode != SoapUtility::API_DATA_NOT_FOUND
+		) {
+			/** @var FrontendBackendUserAuthentication $frontendBackendUserAuthentication */
+			$frontendBackendUserAuthentication = $this->objectManager->get('TYPO3\CMS\Backend\FrontendBackendUserAuthentication');
+			$frontendBackendUserAuthentication->simplelog(
+				'CleverReach api error: ' . $soapResponse->message,
+				'me_cleverreach',
+				self::ERROR_LEVEL_INDEX
+			);
+		}
+	}
 }
