@@ -1,0 +1,14 @@
+# cat=API; type=string; label=CleverReach api url
+wsdlUrl = http://api.cleverreach.com/soap/interface_v5.1.php?wsdl
+
+# cat=API; type=string; label=CleverReach api key
+apiKey =
+
+# cat=API; type=string; label=CleverReach list name
+source =
+
+# cat=API; type=string; label=CleverReach form id
+formId =
+
+# cat=API; type=string; label=CleverReach list id
+listId =
