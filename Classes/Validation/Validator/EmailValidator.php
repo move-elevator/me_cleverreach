@@ -62,7 +62,7 @@ class EmailValidator extends AbstractBaseValidator {
 			} else {
 				$message = LocalizationUtility::translate('form.already_exists.subscribe', 'me_cleverreach');
 				$this->addError($message, 1400589371, array('property' => 'email'));
-				$this->loggedErrorIfNecessary($soapResponse);
+				$this->logErrorIfNecessary($soapResponse);
 			}
 		}
 
@@ -73,7 +73,7 @@ class EmailValidator extends AbstractBaseValidator {
 	 * @param \SoapClient $soapResponse
 	 * @return void
 	 */
-	protected function loggedErrorIfNecessary($soapResponse) {
+	protected function logErrorIfNecessary($soapResponse) {
 		if (
 			$soapResponse->status === 'ERROR'
 			&& $soapResponse->statuscode != SoapUtility::API_DATA_NOT_FOUND
