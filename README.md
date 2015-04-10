@@ -4,11 +4,11 @@ Implements the CleverReach API for TYPO3.
 
 ## Installation
 
-Install extension about extension manager.
+Install and configure extension about extension manager.
 
 ## Configuration
 
-Configure extension by TypoScript.
+Also it is possible to configure extension by TypoScript.
 
 * plugin.tx_mecleverreach.settings.config.wsdlUrl = URL to api
 * plugin.tx_mecleverreach.settings.config.apiKey = api key
@@ -28,6 +28,10 @@ Configure CleverReach api data and add plugin as page content.
 
 ## Change Log
 
-2015-04-208  Jan Maennig  <jma@move-elevator.de>
+2015-04-10  Jan Maennig  <jma@move-elevator.de>
+
+	* Add log for api call error and add extension configuration at extension manager.
+
+2015-04-08  Jan Maennig  <jma@move-elevator.de>
 
 	* Initial release to TER! 
