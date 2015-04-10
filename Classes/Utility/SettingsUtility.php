@@ -3,9 +3,8 @@
 namespace MoveElevator\MeCleverreach\Utility;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \MoveElevator\MeLibrary\Utility\TyposcriptUtility;
 use \TYPO3\CMS\Extbase\Service\TypoScriptService;
-
+use \MoveElevator\MeLibrary\Utility\TyposcriptUtility;
 
 /**
  * Class SettingsUtility
@@ -14,11 +13,48 @@ use \TYPO3\CMS\Extbase\Service\TypoScriptService;
  */
 class SettingsUtility {
 	/**
-	 * Get settings as plain array
+	 * Get settings from TypoScript and form extension configuration.
+	 * TypoScript overwrite settings from extension configuration.
 	 *
 	 * @return array
 	 */
 	static public function getSettings() {
+		$settings = array();
+
+		$settingsConfVars = self::getExtensionSettingsByConfVars();
+		$settingsTypoScript = self::getExtensionSettingsByTypoScript();
+		$settings['config'] = array_merge(
+			$settingsConfVars['config'],
+			$settingsTypoScript['config']
+		);
+
+		return $settings;
+	}
+
+	/**
+	 * @return array
+	 */
+	static protected function getExtensionSettingsByConfVars() {
+		$settings = array();
+
+		if (
+			!isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['me_cleverreach'])
+			|| unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['me_cleverreach']) === FALSE
+		) {
+			return $settings;
+		}
+
+		return array(
+			'config' => unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['me_cleverreach'])
+		);
+	}
+
+	/**
+	 * @return array
+	 */
+	static protected function getExtensionSettingsByTypoScript() {
+		$settings = array();
+
 		/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
 		$objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 
@@ -27,9 +63,9 @@ class SettingsUtility {
 		$settings = TyposcriptUtility::getTypoScriptSetup('tx_mecleverreach', 'settings');
 
 		if (is_array($settings) && $typoScriptService instanceof TypoScriptService) {
-			return $typoScriptService->convertTypoScriptArrayToPlainArray($settings);
+			$settings = $typoScriptService->convertTypoScriptArrayToPlainArray($settings);
 		}
 
-		return FALSE;
+		return $settings;
 	}
 }
