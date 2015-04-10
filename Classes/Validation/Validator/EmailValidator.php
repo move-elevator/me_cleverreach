@@ -13,6 +13,7 @@ use \TYPO3\CMS\Backend\FrontendBackendUserAuthentication;
  * @package MoveElevator\MeCleverreach\Validation\Validator
  */
 class EmailValidator extends AbstractBaseValidator {
+
 	const ERROR_LEVEL_INDEX = 2;
 
 	/**
