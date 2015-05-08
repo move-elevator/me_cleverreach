@@ -28,6 +28,10 @@ Configure CleverReach api data and add plugin as page content.
 
 ## Change Log
 
+2015-05-08  Jan Maennig  <jma@move-elevator.de>
+
+	* Update composer.json to fixed problems at extension activation
+
 2015-04-10  Jan Maennig  <jma@move-elevator.de>
 
 	* Add log for api call error and add extension configuration at extension manager.
