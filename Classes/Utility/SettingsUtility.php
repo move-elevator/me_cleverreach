@@ -4,7 +4,6 @@ namespace MoveElevator\MeCleverreach\Utility;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \TYPO3\CMS\Extbase\Service\TypoScriptService;
-use \MoveElevator\MeLibrary\Utility\TyposcriptUtility;
 
 /**
  * Class SettingsUtility
