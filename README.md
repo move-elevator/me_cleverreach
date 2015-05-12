@@ -28,6 +28,10 @@ Configure CleverReach api data and add plugin as page content.
 
 ## Change Log
 
+2015-05-08  Steve Schütze <sts@move-elevator.de>
+
+	* resolve dependencies to other extensions
+
 2015-05-08  Jan Maennig  <jma@move-elevator.de>
 
 	* Update composer.json to fixed problems at extension activation
@@ -38,4 +42,4 @@ Configure CleverReach api data and add plugin as page content.
 
 2015-04-08  Jan Maennig  <jma@move-elevator.de>
 
-	* Initial release to TER! 
+	* Initial release to TER!
