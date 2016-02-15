@@ -43,3 +43,8 @@ Configure CleverReach api data and add plugin as page content.
 2015-04-08  Jan Maennig  <jma@move-elevator.de>
 
 	* Initial release to TER!
+
+2016-02-15  Philipp Heckelt  <phe@move-elevator.de>
+
+    * Release for TYPO3 7
+    * Changes for phpunit
