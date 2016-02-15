@@ -50,27 +50,27 @@ class EmailValidator extends AbstractBaseValidator
     {
         $valid = false;
 
-        if ($value instanceof User) {
-            $soapResponse = $this->soapClient->receiverGetByEmail(
-                $this->settings['config']['apiKey'],
-                $this->settings['config']['listId'],
-                $value->getEmail(),
-                0
-            );
-
-            if (
-                $soapResponse->statuscode == SoapUtility::API_DATA_NOT_FOUND
-                || intval($soapResponse->data->deactivated) > 0
-            ) {
-                $valid = true;
-            } else {
-                $message = LocalizationUtility::translate('form.already_exists.subscribe', 'me_cleverreach');
-                $this->addError($message, 1400589371, array('property' => 'email'));
-                $this->logErrorIfNecessary($soapResponse);
-            }
+        if (!$value instanceof User) {
+            return false;
         }
 
-        return $valid;
+        $soapResponse = $this->soapClient->receiverGetByEmail(
+            $this->settings['config']['apiKey'],
+            $this->settings['config']['listId'],
+            $value->getEmail(),
+            0
+        );
+
+        if ($soapResponse->statuscode == SoapUtility::API_DATA_NOT_FOUND
+            || intval($soapResponse->data->deactivated) > 0) {
+                return true;
+        }
+
+        $message = LocalizationUtility::translate('form.already_exists.subscribe', 'me_cleverreach');
+        $this->addError($message, 1400589371, array('property' => 'email'));
+        $this->logErrorIfNecessary($soapResponse);
+
+        return false;
     }
 
     /**
@@ -79,12 +79,12 @@ class EmailValidator extends AbstractBaseValidator
      */
     protected function logErrorIfNecessary($soapResponse)
     {
-        if (
-            $soapResponse->status === 'ERROR'
+        if ($soapResponse->status === 'ERROR'
             && $soapResponse->statuscode != SoapUtility::API_DATA_NOT_FOUND
         ) {
             /** @var FrontendBackendUserAuthentication $frontendBackendUserAuthentication */
-            $frontendBackendUserAuthentication = $this->objectManager->get('TYPO3\CMS\Backend\FrontendBackendUserAuthentication');
+            $frontendBackendUserAuthentication =
+                $this->objectManager->get('TYPO3\CMS\Backend\FrontendBackendUserAuthentication');
             $frontendBackendUserAuthentication->simplelog(
                 'CleverReach api error: ' . $soapResponse->message,
                 'me_cleverreach',

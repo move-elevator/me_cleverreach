@@ -28,22 +28,25 @@ class TyposcriptUtility
         $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
         $typoScript = $configurationManager->getConfiguration('FullTypoScript');
 
-        if (is_array($typoScript['plugin.'][$pluginKey . '.'])) {
-            if (!empty($typoscriptKey)) {
-                if (!is_null($typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey . '.'])) {
-                    return $typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey . '.'];
-                } elseif (!is_null($typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey])) {
-                    return $typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey];
-                } else {
-                    throw new Exception('no typoscript setup for plugin.' . $pluginKey . ' and typoscript key ' . $typoscriptKey, 1357206457);
-                }
-            }
-
-            return $typoScript['plugin.'][$pluginKey . '.'];
-        } else {
+        if (!is_array($typoScript['plugin.'][$pluginKey . '.'])) {
             throw new Exception('no typoscript setup for plugin.' . $pluginKey, 1352897029);
         }
 
-        return false;
+        if (empty($typoscriptKey)) {
+            return $typoScript['plugin.'][$pluginKey . '.'];
+        }
+
+        if (!is_null($typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey . '.'])) {
+            return $typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey . '.'];
+        }
+
+        if (!is_null($typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey])) {
+            return $typoScript['plugin.'][$pluginKey . '.'][$typoscriptKey];
+        }
+
+        throw new Exception(
+            'no typoscript setup for plugin.' . $pluginKey . ' and typoscript key ' . $typoscriptKey,
+            1357206457
+        );
     }
 }
