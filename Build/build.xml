@@ -108,7 +108,7 @@
             <arg value="${bindir}/phpcs"/>
             <arg value="--report=checkstyle"/>
             <arg value="--report-checkstyle=${builddir}/logs/checkstyle.xml"/>
-            <arg value="--standard=TYPO3CMS"/>
+            <arg value="--standard=PSR2"/>
             <arg value="--extensions=php"/>
             <arg value="--ignore=vendor,tests,public/js,build"/>
             <arg path="${basedir}"/>

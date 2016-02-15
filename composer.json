@@ -5,9 +5,7 @@
     "squizlabs/php_codesniffer": "1.5.5",
     "phploc/phploc": "2.0.6",
     "phpmd/phpmd": "2.1.1",
-    "sebastian/phpcpd": "2.0.1",
-    "typo3-ci/typo3cms": "6.2.1",
-    "typo3-ci/typo3sniffpool": "~1.0"
+    "sebastian/phpcpd": "2.0.1"
   },
   "config": {
     "bin-dir": "Build/bin"
