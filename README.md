@@ -28,6 +28,11 @@ Configure CleverReach api data and add plugin as page content.
 
 ## Change Log
 
+2016-02-15  Philipp Heckelt  <phe@move-elevator.de>
+
+    * Release for TYPO3 7
+    * Changes for phpunit
+
 2015-05-08  Steve Schütze <sts@move-elevator.de>
 
 	* resolve dependencies to other extensions
