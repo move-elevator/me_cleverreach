@@ -1,0 +1,22 @@
+<div class="form-group">
+    <f:render partial="Form/FieldError" arguments="{ property: propertyName, objectName: 'user'}"/>
+
+    <label for="{fieldId}" class="col-sm-2 control-label">
+        <f:translate key="{translationKey}"/>
+        :
+    </label>
+
+    <div class="col-sm-10">
+        <f:for each="{options}" as="option">
+            <f:form.radio
+                    property="{propertyName}"
+                    value="{option}"
+                    id="{fieldId}-{option}"
+                    class="form-control"/>
+
+            <label for="{fieldId}-{option}" class="control-label">
+                <f:translate key="{translationKey}.{option}"/>
+            </label>
+        </f:for>
+    </div>
+</div>

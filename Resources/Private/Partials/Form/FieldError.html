@@ -5,6 +5,7 @@
 			<f:for each="{errors}" as="error" iteration="iterator">
 				<f:if condition="{iterator.index} == 0">
 					<div class="col-sm-10 col-sm-offset-2">
+						<f:debug>{objectName}.error.{property}.{error.code}</f:debug>
 						<f:translate
 								key="{objectName}.error.{property}.{error.code}"/>
 					</div>
