@@ -16,6 +16,12 @@ class User extends AbstractValueObject
      * @var string
      * @validate NotEmpty
      */
+    protected $salutation;
+
+    /**
+     * @var string
+     * @validate NotEmpty
+     */
     protected $firstName;
 
     /**
@@ -44,6 +50,23 @@ class User extends AbstractValueObject
     public function initializeObject()
     {
         $this->settings = SettingsUtility::getSettings();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalutation()
+    {
+        return $this->salutation;
+    }
+
+    /**
+     * @param string $salutation
+     * @return void
+     */
+    public function setSalutation($salutation)
+    {
+        $this->salutation = $salutation;
     }
 
     /**

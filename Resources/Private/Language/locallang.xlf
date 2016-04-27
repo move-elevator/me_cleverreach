@@ -3,6 +3,15 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2013-01-14T10:49:30Z" product-name="me_cleverreach">
         <header/>
         <body>
+            <trans-unit id="user.salutation">
+                <source>Salutation</source>
+            </trans-unit>
+            <trans-unit id="user.salutation.female">
+                <source>Mrs</source>
+            </trans-unit>
+            <trans-unit id="user.salutation.male">
+                <source>Mr</source>
+            </trans-unit>
             <trans-unit id="user.firstName">
                 <source>Firstname</source>
             </trans-unit>
@@ -26,6 +35,9 @@
             </trans-unit>
             <trans-unit id="form.error.subscribe">
                 <source>Error!</source>
+            </trans-unit>
+            <trans-unit id="user.error.salutation.1221560910">
+                <source>Salutation required!</source>
             </trans-unit>
             <trans-unit id="user.error.firstName.1221560718">
                 <source>Firstname required!</source>

@@ -10,15 +10,19 @@
 			<f:else>
 				<f:form action="subscribe" controller="Subscribe" method="post" objectName="user" class="form-horizontal">
 					<f:render
-							partial="Form/Field"
+							partial="Form/FieldRadio"
+							arguments="{fieldId: 'me-cleverreach-subscribe-salutation', translationKey: 'user.salutation', propertyName: 'salutation', value: '{user.salutation}', options: '{0:\'female\',1:\'male\'}'}"/>
+
+					<f:render
+							partial="Form/FieldTextbox"
 							arguments="{fieldId: 'me-cleverreach-subscribe-first-name', translationKey: 'user.firstName', propertyName: 'firstName', value: '{user.firstName}'}"/>
 
 					<f:render
-							partial="Form/Field"
+							partial="Form/FieldTextbox"
 							arguments="{fieldId: 'me-cleverreach-subscribe-last-name', translationKey: 'user.lastName', propertyName: 'lastName', value: '{user.lastName}'}"/>
 
 					<f:render
-							partial="Form/Field"
+							partial="Form/FieldTextbox"
 							arguments="{fieldId: 'me-cleverreach-subscribe-email', translationKey: 'user.email', propertyName: 'email', value: '{user.email}'}"/>
 
 					<div class="form-group">
