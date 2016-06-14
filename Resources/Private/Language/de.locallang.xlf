@@ -72,7 +72,6 @@
             <trans-unit id="subscribe.directSubscription.directSubscription">
                 <target>Ihre E-Mail-Adresse wurde aktiviert und wird beim nächsten Versand des Newsletters berücksichtigt.</target>
             </trans-unit>
-
             <trans-unit id="form.already_exists.subscribe">
                 <target>E-Mail-Adresse bereits vorhanden!</target>
             </trans-unit>

@@ -28,6 +28,10 @@ Configure CleverReach api data and add plugin as page content.
 
 ## Change Log
 
+2016-06-14  Hendrik Papmahl  <hpa@move-elevator.de>
+
+    * Update translations
+
 2016-02-18  Philipp Heckelt  <phe@move-elevator.de>
 
     * Release for TYPO3 7

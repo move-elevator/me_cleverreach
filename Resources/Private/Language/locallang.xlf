@@ -4,28 +4,28 @@
         <header/>
         <body>
             <trans-unit id="user.salutation">
-                <source>Salutation</source>
+                <source>Title</source>
             </trans-unit>
             <trans-unit id="user.salutation.female">
-                <source>Mrs</source>
+                <source>Ms</source>
             </trans-unit>
             <trans-unit id="user.salutation.male">
                 <source>Mr</source>
             </trans-unit>
             <trans-unit id="user.firstName">
-                <source>Firstname</source>
+                <source>First name</source>
             </trans-unit>
             <trans-unit id="user.lastName">
-                <source>Lastname</source>
+                <source>Last name</source>
             </trans-unit>
             <trans-unit id="user.email">
                 <source>Email</source>
             </trans-unit>
             <trans-unit id="user.firstName.placeholder">
-                <source>Enter firstname</source>
+                <source>Enter first name</source>
             </trans-unit>
             <trans-unit id="user.lastName.placeholder">
-                <source>Enter lastname</source>
+                <source>Enter last name</source>
             </trans-unit>
             <trans-unit id="user.email.placeholder">
                 <source>Enter email</source>
@@ -34,47 +34,46 @@
                 <source>Subscribe</source>
             </trans-unit>
             <trans-unit id="form.error.subscribe">
-                <source>Error!</source>
+                <source>Your entries could not be saved.</source>
             </trans-unit>
             <trans-unit id="user.error.salutation.1221560910">
-                <source>Salutation required!</source>
+                <source>Please select title:</source>
             </trans-unit>
             <trans-unit id="user.error.firstName.1221560718">
-                <source>Firstname required!</source>
+                <source>Please enter your first name:</source>
             </trans-unit>
             <trans-unit id="user.error.lastName.1221560718">
-                <source>Lastname required!</source>
+                <source>Please enter your last name:</source>
             </trans-unit>
             <trans-unit id="user.error.email.1221560718">
-                <source>Email required!</source>
+                <source>Please enter your email</source>
             </trans-unit>
             <trans-unit id="user.error.email.1221559976">
-                <source>Email invalid!</source>
+                <source>Please enter a valid email address:</source>
             </trans-unit>
             <trans-unit id="form.SUCCESS.subscribe">
                 <source>Subscription successful!</source>
             </trans-unit>
             <trans-unit id="form.ERROR.subscribe">
-                <source>Error!</source>
+                <source>Your subscription could not be saved.</source>
             </trans-unit>
             <trans-unit id="form.ERROR.subscribe.text">
-                <source>Please try again at a later time again.</source>
+                <source>Please try again later.</source>
             </trans-unit>
             <trans-unit id="subscribe.directSubscription.thankYou">
                 <source>We appreciate your interest in our newsletter.</source>
             </trans-unit>
             <trans-unit id="subscribe.directSubscription.listData">
-                <source>The following data have been deposited with us:</source>
+                <source>The following information was saved to our server.</source>
             </trans-unit>
             <trans-unit id="subscribe.directSubscription.optinNotification">
-                <source>To complete the registration please click on the link in the email we've just sent to you.</source>
+                <source>To complete your subscription, please click on the link in the email we have just sent you.</source>
             </trans-unit>
             <trans-unit id="subscribe.directSubscription.directSubscription">
-                <source>Your e-mail address has been activated and is included in the next sending the newsletter.</source>
+                <source>You have been added to our mailing list, keeping you up-to-date with our latest news.</source>
             </trans-unit>
-
             <trans-unit id="form.already_exists.subscribe">
-                <source>Email already exists!</source>
+                <source>This email address already exists!</source>
             </trans-unit>
         </body>
     </file>
