@@ -45,9 +45,10 @@ class SubscribeService
     public function subscribe(User $user)
     {
         $result = array();
-        $soapResponse = $this->userAddOrUpdate($user);
-        $result['subscriptionState'] = $soapResponse->status;
-        $this->processedMailActivationTasks($user, $result);
+        if ($soapResponse = $this->userAddOrUpdate($user)) {
+            $result['subscriptionState'] = $soapResponse->status;
+            $this->processedMailActivationTasks($user, $result);
+        }
 
         return $result;
     }
@@ -64,8 +65,8 @@ class SubscribeService
         $result = array();
         if ($soapResponse = $this->userRemove($user)) {
             $result['subscriptionState'] = $soapResponse->status;
+            $this->processedMailActivationTasks($user, $result);
         }
-        $this->processedMailActivationTasks($user, $result);
 
         return $result;
     }
