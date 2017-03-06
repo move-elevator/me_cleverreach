@@ -53,6 +53,24 @@ class SubscribeService
     }
 
     /**
+     * Unsubscribe user in CleverReach
+     *
+     * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
+     *
+     * @return array
+     */
+    public function unsubscribe(User $user)
+    {
+        $result = array();
+        if ($soapResponse = $this->userRemove($user)) {
+            $result['subscriptionState'] = $soapResponse->status;
+        }
+        $this->processedMailActivationTasks($user, $result);
+
+        return $result;
+    }
+
+    /**
      * Get mail header for activation email
      *
      * @param \MoveElevator\MeCleverreach\Domain\Model\User $user
@@ -143,6 +161,35 @@ class SubscribeService
                 $user->toArray()
             );
         }
+
+        return $soapResponse;
+    }
+
+    /**
+     * @param $user
+     *
+     * @return bool
+     */
+    public function userRemove($user)
+    {
+        // receiverGetByEmail documentation
+        // http://api.cleverreach.com/soap/doc/5.0/CleverReach/Receiver/_complex.receiver.php.html#functionreceiverGetByEmail
+        $soapResponse = $this->soapClient->receiverGetByEmail(
+            $this->settings['config']['apiKey'],
+            $this->settings['config']['listId'],
+            $user->getEmail(),
+            3
+        );
+
+        if ($soapResponse->statuscode === SoapUtility::API_DATA_NOT_FOUND) {
+            return false;
+        }
+
+        $soapResponse = $this->soapClient->receiverDelete(
+            $this->settings['config']['apiKey'],
+            $this->settings['config']['listId'],
+            $user->getEmail()
+        );
 
         return $soapResponse;
     }
