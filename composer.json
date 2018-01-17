@@ -7,6 +7,11 @@
     "phpmd/phpmd": "2.1.1",
     "sebastian/phpcpd": "2.0.1"
   },
+  "autoload": {
+    "psr-4": {
+      "MoveElevator\\MeCleverreach\\": "Classes/"
+    }
+  },
   "config": {
     "bin-dir": "Build/bin"
   }
